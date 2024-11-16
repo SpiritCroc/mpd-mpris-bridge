@@ -38,6 +38,10 @@ could use [Polybar's](https://polybar.github.io/) MPD module without having to c
     yarn start
     ```
 
+## Useful resources
+
+- [MPD protocol spec](https://mpd.readthedocs.io/en/latest/protocol.html)
+
 ## License
 
 This is licensed under the [MIT license](https://opensource.org/licenses/MIT) and contributions are welcomed :)
