@@ -38,6 +38,10 @@ function createMetadataObject(metadata) {
             case "u":
                 value = attribute[1][1][0] / 1000000;
                 break;
+            case "o":
+            case "x":
+                // TODO?
+                break;
             default:
                 console.warn('Unknown type found: ' + attribute[1][0][0].type);
                 break;
@@ -56,6 +60,7 @@ function createMetadataObject(metadata) {
 function startListening(service) {
     sessionBus.getService(service).getInterface('/org/mpris/MediaPlayer2', 'org.mpris.MediaPlayer2.Player', function (error, player) {
         const mpdServer = mpd(function(command, parameters, connection) {        
+            //console.info('Got command: ' + command);
             switch (command) {
                 case 'next':
                     return new Promise(function (resolve) {
@@ -148,6 +153,12 @@ function startListening(service) {
                             ));
                         });
                     });
+                case 'playlistinfo':
+                    return Promise.resolve("");
+                case 'close':
+                    return Promise.resolve("");
+                case 'ping':
+                    return Promise.resolve("OK");
                 default:
                     console.log('Command', command, parameters);
 
