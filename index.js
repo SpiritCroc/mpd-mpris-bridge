@@ -168,7 +168,7 @@ function startListening(service) {
             }
         });
         
-        mpdServer.listen({ port: 6600 }, () => {
+        mpdServer.listen({ port: 6601 }, () => {
             console.log('MPD server running on ', mpdServer.server.address());
         });
         
