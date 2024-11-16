@@ -14,11 +14,12 @@ duration: ${duration}
 }
 
 function createStatusResponse(position, duration, state) {
+    let time = isNaN(duration) ? `${Math.round(position)}` : `${Math.round(position)}:${Math.round(duration)}`;
     return `repeat: 0
 random: 0
 playlistlength: 1
 state: ${state}
-time: ${Math.round(position)}:${Math.round(duration)}
+time: ${time}
 elapsed: ${position}
 `;
 }
