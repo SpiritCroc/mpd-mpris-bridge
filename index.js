@@ -4,16 +4,17 @@ const dbus = require('dbus-native');
 
 const sessionBus = dbus.sessionBus();
 
-function createCurrentSongResponse(artist, title, duration) {
+function createCurrentSongResponse(artist, title, duration, artUrl) {
     return `file: ${title}
 Title: ${title}
 Artist: ${artist}
 Time: ${duration}
 duration: ${duration}
+arturl: ${artUrl}
 `;
 }
 
-function createStatusResponse(position, duration, state) {
+function createStatusResponse(position, duration, state, artUrl) {
     let time = isNaN(duration) ? `${Math.round(position)}` : `${Math.round(position)}:${Math.round(duration)}`;
     return `repeat: 0
 random: 0
@@ -21,6 +22,7 @@ playlistlength: 1
 state: ${state}
 time: ${time}
 elapsed: ${position}
+arturl: ${artUrl}
 `;
 }
 
@@ -34,14 +36,12 @@ function createMetadataObject(metadata) {
                 value = attribute[1][1][0][0];
                 break;
             case "s":
+            case "o":
+            case "x":
                 value = attribute[1][1][0];
                 break;
             case "u":
                 value = attribute[1][1][0] / 1000000;
-                break;
-            case "o":
-            case "x":
-                // TODO?
                 break;
             default:
                 console.warn('Unknown type found: ' + attribute[1][0][0].type);
@@ -131,8 +131,9 @@ function startListening(service) {
 
                                     resolve(createStatusResponse(
                                         position / 1000000,
-                                        result['mpris:length'],
-                                        state
+                                        parseFloat(result['mpris:length']) / 1000000.0,
+                                        state,
+                                        result['mpris:artUrl'],
                                     ));
                                 });
                             });
@@ -151,7 +152,8 @@ function startListening(service) {
                             resolve(createCurrentSongResponse(
                                 result['xesam:artist'],
                                 result['xesam:title'],
-                                result['mpris:length']
+                                result['mpris:length'] / 1000000.0,
+                                result['mpris:artUrl']
                             ));
                         });
                     });
