@@ -94,9 +94,8 @@ function startListening(service) {
                         resolve('');
                     });
                 case 'stop':
-                    // TODO: use stop unless it doesn't work? My player can only pause right now
                     return new Promise(function (resolve) {
-                        player.Pause(() => {
+                        player.Stop(() => {
                             resolve('');
                         });
                     });
