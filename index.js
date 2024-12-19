@@ -210,7 +210,9 @@ async function startServer() {
             await startServer();
         }, {
             onRetry: error => console.error(error),
-            retries: 5
+            retries: 50000,
+            minTimeout: 3000,
+            maxTimeout: 6000,
         });
     } catch (e) {
         // We need to close the connection on any final failures, otherwise Node won't exit
