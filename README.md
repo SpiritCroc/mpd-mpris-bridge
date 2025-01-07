@@ -1,5 +1,8 @@
-MPD/MPRIS Bridge
-================
+# DEPRECATION NOTICE
+
+Fixing bugs in js got too annoying for me, so I [re-implemented this project in Rust](https://github.com/SpiritCroc/mpd-mpris-bridge-rs).
+
+# MPD/MPRIS Bridge
 
 This is a little service that exposes an MPD server that bridges over to an MPRIS interface through D-Bus. I wrote this so that I
 could use [Polybar's](https://polybar.github.io/) MPD module without having to change my media player(s).
